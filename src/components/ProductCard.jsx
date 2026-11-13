@@ -1,8 +1,20 @@
+import { useState } from 'react'
 import { Heart, Star } from 'lucide-react'
+import { useStore } from '../context/StoreContext'
 
 export default function ProductCard({ product }) {
   const { name, price, oldPrice, rating, reviews, image } = product
   const onSale = oldPrice !== null
+
+  const { addToCart, toggleWishlist, isWishlisted } = useStore()
+  const wished = isWishlisted(product.id)
+  const [added, setAdded] = useState(false)
+
+  const handleAdd = () => {
+    addToCart(product)
+    setAdded(true)
+    setTimeout(() => setAdded(false), 1200)
+  }
 
   return (
     <div className="relative rounded-xl bg-white p-3 shadow-sm transition hover:shadow-md">
@@ -15,11 +27,15 @@ export default function ProductCard({ product }) {
 
       {/* Wishlist button */}
       <button
-        aria-label="Add to wishlist"
-        className="absolute right-3 top-3 text-muted hover:text-navy"
+      onClick={() => toggleWishlist(product.id)}
+      aria-label={wished ? 'Remove from wishlist' : 'Add to wishlist'}
+      className="absolute right-3 top-3 text-muted hover:text-navy"
       >
-        <Heart size={20} />
-      </button>
+        <Heart
+        size={20}
+        className={wished ? 'fill-red-500 text-red-500' : ''}
+        />
+        </button>
 
       {/* Image */}
       <img
@@ -45,9 +61,12 @@ export default function ProductCard({ product }) {
         )}
       </div>
 
-      <button className="mt-3 w-full rounded-lg bg-cyan py-2 font-semibold text-navy hover:brightness-110">
-        Add to Cart
-      </button>
+      <button
+      onClick={handleAdd}
+      className="mt-3 w-full rounded-lg bg-cyan py-2 font-semibold text-navy hover:brightness-110"
+      >
+        {added ? 'Added ✓' : 'Add to Cart'}
+        </button>
     </div>
   )
 }
