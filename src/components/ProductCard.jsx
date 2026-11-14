@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Heart, Star } from 'lucide-react'
 import { useStore } from '../context/StoreContext'
+import { Link } from 'react-router-dom'
 
 export default function ProductCard({ product }) {
   const { name, price, oldPrice, rating, reviews, image } = product
@@ -38,14 +39,20 @@ export default function ProductCard({ product }) {
         </button>
 
       {/* Image */}
-      <img
-        src={image}
-        alt={name}
-        className="aspect-square w-full rounded-lg object-cover"
-      />
+      <Link to={`/product/${product.id}`}>
+        <img
+          src={image}
+          alt={name}
+          className="aspect-square w-full rounded-lg object-cover"
+        />
+      </Link>
 
       {/* Info */}
-      <h3 className="mt-3 line-clamp-2 font-heading font-medium">{name}</h3>
+      <h3 className="mt-3 line-clamp-2 font-heading font-medium">
+        <Link to={`/product/${product.id}`} className="hover:text-cyan">
+          {name}
+        </Link>
+      </h3>
 
       <div className="mt-1 flex items-center gap-1 text-sm text-muted">
         <Star size={14} className="fill-cyan text-cyan" />

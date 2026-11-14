@@ -24,6 +24,24 @@ export function StoreProvider({ children }) {
     )
   }
 
+  const updateQty = (id, delta) => {
+    setCart((prev) =>
+      prev
+        .map((item) =>
+          item.id === id ? { ...item, qty: item.qty + delta } : item
+        )
+        .filter((item) => item.qty > 0)
+    )
+  }
+
+  const removeFromCart = (id) => {
+    setCart((prev) => prev.filter((item) => item.id !== id))
+  }
+
+  const clearCart = () => setCart([])
+
+  const cartTotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0)
+
   const isWishlisted = (id) => wishlist.includes(id)
   const cartCount = cart.reduce((sum, item) => sum + item.qty, 0)
 

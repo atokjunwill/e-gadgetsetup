@@ -1,5 +1,6 @@
 import { Search, Heart, ShoppingCart } from 'lucide-react'
 import { useStore } from '../context/StoreContext'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   const { cartCount, wishlist } = useStore()
@@ -7,9 +8,9 @@ export default function Navbar() {
     <header className="bg-navy text-white">
       <div className="mx-auto flex max-w-7xl items-center gap-6 px-4 py-4">
         {/* Logo */}
-        <a href="/" className="font-heading text-xl font-bold">
+        <Link to="/" className="font-heading text-xl font-bold">
           E-Gadget<span className="text-cyan">Setup</span>
-        </a>
+        </Link>
 
         {/* Search bar */}
         <div className="flex flex-1 overflow-hidden rounded-full bg-white">
@@ -37,14 +38,14 @@ export default function Navbar() {
             )}
           </button>
 
-          <button aria-label="Cart" className="relative">
+          <Link to="/cart" aria-label="Cart" className="relative">
             <ShoppingCart />
             {cartCount > 0 && (
               <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-cyan text-xs font-bold text-navy">
                 {cartCount}
               </span>
             )}
-          </button>
+          </Link>
         </div>
       </div>
     </header>
