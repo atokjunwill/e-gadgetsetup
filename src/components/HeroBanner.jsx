@@ -4,7 +4,7 @@ export default function HeroBanner() {
   return (
     <section className="relative overflow-hidden rounded-2xl bg-navy">
       <img
-        src="/images/hero/hero-01.jpg"
+        src="/images/hero/hero-01.png"
         alt="Modern gadget desk setup"
         className="absolute inset-0 h-full w-full object-cover opacity-50"
       />

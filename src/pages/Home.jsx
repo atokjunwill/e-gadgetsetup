@@ -1,13 +1,18 @@
-import { useState } from 'react'
 import HeroBanner from '../components/HeroBanner'
 import FeatureStrip from '../components/FeatureStrip'
 import CategoryGrid from '../components/CategoryGrid'
 import ProductRow from '../components/ProductRow'
 import ProductCard from '../components/ProductCard'
 import { products } from '../data/products'
+import { useSearchParams } from 'react-router-dom'
 
 export default function Home() {
-  const [selectedCategory, setSelectedCategory] = useState(null)
+const [searchParams, setSearchParams] = useSearchParams()
+const selectedCategory = searchParams.get('category')
+
+const setSelectedCategory = (name) => {
+  setSearchParams(name ? { category: name } : {})
+}
 
   const deals = products.filter((p) => p.oldPrice !== null)
   const newArrivals = products.slice(0, 8)

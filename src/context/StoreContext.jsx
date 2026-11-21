@@ -1,10 +1,30 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 
 const StoreContext = createContext(null)
 
 export function StoreProvider({ children }) {
-  const [cart, setCart] = useState([])
-  const [wishlist, setWishlist] = useState([])
+  const [cart, setCart] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('cart')) ?? []
+    } catch {
+      return []
+    }
+  })
+  const [wishlist, setWishlist] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('wishlist')) ?? []
+    } catch {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
+
+  useEffect(() => {
+    localStorage.setItem('wishlist', JSON.stringify(wishlist))
+  }, [wishlist])
 
   const addToCart = (product) => {
     setCart((prev) => {

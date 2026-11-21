@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from './Navbar'
+import Footer from './Footer'
 
 export default function Layout() {
   const { pathname } = useLocation()
@@ -11,11 +12,12 @@ export default function Layout() {
   }, [pathname])
 
   return (
-    <>
-      <Navbar />
-      <main className="mx-auto max-w-7xl px-4 py-8">
-        <Outlet />
-      </main>
-    </>
-  )
+  <div className="flex min-h-screen flex-col">
+    <Navbar />
+    <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8">
+      <Outlet />
+    </main>
+    <Footer />
+  </div>
+)
 }

@@ -44,6 +44,8 @@ export default function ProductCard({ product }) {
           src={image}
           alt={name}
           className="aspect-square w-full rounded-lg object-cover"
+          loading="lazy"
+          onError={(e) => { e.currentTarget.src = '/images/placeholder.jpg' }}
         />
       </Link>
 
